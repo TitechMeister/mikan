@@ -25,6 +25,9 @@ router = DefaultRouter()
 router.register("members",
                 members.views.MemberViewSet,
                 base_name="member")
+router.register("teams",
+                members.views.TeamViewSet,
+                base_name="team")
 router.register("work",
                 work.views.WorkViewSet,
                 base_name="work")
@@ -37,6 +40,7 @@ urlpatterns = [
     url(r'^admin', admin.site.urls),
     url(r'^auth/', include('authentication.urls')),
     url(r'^account/', include('account.urls')),
+    url(r'^register/', include('registration.urls')),
     url(r'^static/(?P<path>.*)$', serve, {
         'document_root': settings.STATIC_ROOT
     }),

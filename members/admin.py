@@ -7,9 +7,11 @@ from members.models import Member, Team
 class MemberAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email',
+        (_('Personal info'), {'fields': ('email',
+                                         ('first_name', 'last_name'),
+                                         ('ja_last_name', 'ja_first_name'),
                                          'team', 'felica_idm',
-                                         'exective_generation',
+                                         'executive_generation',
                                          'profile_image')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),

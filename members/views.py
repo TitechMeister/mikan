@@ -1,19 +1,22 @@
-from rest_framework import viewsets
-from members.models import Member
-from members.serializers import MemberSerializer, MemberSerializerDetailed
-from members.permissions import MemberAccessPermisson
+from rest_framework import viewsets, permissions
+from members.models import Member, Team
+from members.serializers import MemberSerializer, TeamSerializer
 
 
-class MemberViewSet(viewsets.ModelViewSet):
+class MemberViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
-    permission_classes = (MemberAccessPermisson,)
 
-    def get_serializer_class(self):
-        if self.action == "list" or self.action == "retrieve":
-            return MemberSerializerDetailed
-        return MemberSerializer
+
+class TeamViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+    permission_classes = (permissions.AllowAny,)

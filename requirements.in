@@ -6,3 +6,4 @@ djangorestframework
 djangorestframework-jwt
 django-crispy-forms
 psycopg2-binary
+django-storage-swift

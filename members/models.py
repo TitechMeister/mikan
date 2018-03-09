@@ -31,6 +31,19 @@ class Member(AbstractUser):
     team = models.ForeignKey(Team, on_delete=models.SET_NULL,
                              blank=True, null=True)
 
+    ja_last_name = models.CharField(
+        _("First name (ja)"),
+        max_length=16,
+        blank=True,
+        default="",
+    )
+    ja_first_name = models.CharField(
+        _("Last name (ja)"),
+        max_length=16,
+        blank=True,
+        default="",
+    )
+
     felica_idm = models.CharField(
         _("felica IDm"),
         max_length=16,
@@ -38,7 +51,7 @@ class Member(AbstractUser):
         default="",
     )
 
-    exective_generation = models.PositiveSmallIntegerField(
+    executive_generation = models.PositiveSmallIntegerField(
         _("Executive generation"),
         null=True,
         blank=True,
