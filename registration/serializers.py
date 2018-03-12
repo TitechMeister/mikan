@@ -1,6 +1,6 @@
-from datetime import datetime
 from django.utils import timezone
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from registration.models import RegistrationCode
 from members.models import Member
 
@@ -10,7 +10,11 @@ class RegistrationDataSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         style={'input_type': 'password'}
     )
-    email = serializers.EmailField()
+    email = serializers.EmailField(
+        validators=[UniqueValidator(queryset=Member.objects.all(),
+                                    message="A user with that email "
+                                            "already exists.")]
+    )
 
     first_name = serializers.CharField(max_length=16)
     last_name = serializers.CharField(max_length=16)
