@@ -77,7 +77,7 @@ class Member(AbstractUser):
         blank=True
     )
 
-    def save(self):
+    def save(self, **kwargs):
         if self.profile_image:
             image = PIL.Image.open(self.profile_image)
             width, height = image.size
@@ -98,7 +98,7 @@ class Member(AbstractUser):
                                     content=imageContent,
                                     save=False)
 
-        super(Member, self).save()
+        super(Member, self).save(**kwargs)
 
     class Meta:
         verbose_name = _('member')
