@@ -1,8 +1,12 @@
-from django.contrib.auth.models import AbstractUser
+import io
+import uuid
+import PIL
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-import uuid
 
 
 class Team(models.Model):
@@ -28,6 +32,14 @@ class Member(AbstractUser):
                            null=False,
                            editable=False)
 
+    email = models.EmailField(
+        _('email address'),
+        unique=True,
+        error_messages={
+            'unique': _("A user with that email already exists."),
+        },
+    )
+
     team = models.ForeignKey(Team, on_delete=models.SET_NULL,
                              blank=True, null=True)
 
@@ -37,6 +49,7 @@ class Member(AbstractUser):
         blank=True,
         default="",
     )
+
     ja_first_name = models.CharField(
         _("Last name (ja)"),
         max_length=16,
@@ -58,11 +71,34 @@ class Member(AbstractUser):
         validators=[MinValueValidator(2000), MaxValueValidator(2100)]
     )
 
+    # upload path is defined in save()
     profile_image = models.ImageField(
-        upload_to='images/',
         null=True,
         blank=True
     )
+
+    def save(self):
+        if self.profile_image:
+            image = PIL.Image.open(self.profile_image)
+            width, height = image.size
+            size = min(width, height)
+            image = image.crop(((width - size) // 2,
+                                (height - size) // 2,
+                                (width + size) // 2,
+                                (height + size) // 2))
+
+            image_io = io.BytesIO()
+            image.save(image_io, format="PNG")
+
+            imageName = f"images/{self.uid}.png"
+            default_storage.delete(imageName)
+            imageContent = ContentFile(image_io.getvalue(),
+                                       name=imageName)
+            self.profile_image.save(name=imageName,
+                                    content=imageContent,
+                                    save=False)
+
+        super(Member, self).save()
 
     class Meta:
         verbose_name = _('member')
