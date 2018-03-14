@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^auth/', include('authentication.urls')),
     url(r'^account/', include('account.urls')),
     url(r'^register/', include('registration.urls')),
+    url(r'^recover/', include('recover.urls')),
     url(r'^static/(?P<path>.*)$', serve, {
         'document_root': settings.STATIC_ROOT
     }),

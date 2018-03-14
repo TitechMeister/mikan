@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'work',
     'account',
     'registration',
+    'recover',
 ]
 
 MIDDLEWARE = [
