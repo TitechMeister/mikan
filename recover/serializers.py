@@ -5,11 +5,10 @@ from recover.models import RecoverToken
 
 
 def validate_recover_token(token):
-    try:
-        instance_set = RecoverToken.objects.filter(token=token)
-        instance = instance_set[0]
-    except RecoverToken.DoesNotExist:
+    instance_set = RecoverToken.objects.filter(token=token)
+    if not instance_set:
         raise serializers.ValidationError("This token is invalid.")
+    instance = instance_set[0]
     if instance.valid_until < timezone.now():
         instance_set.delete()
         raise serializers.ValidationError("This token is no longer valid.")
