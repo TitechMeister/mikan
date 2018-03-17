@@ -1,3 +1,4 @@
+import textwrap
 from rest_framework import permissions, views
 from rest_framework.response import Response
 from django.conf import settings
@@ -20,10 +21,16 @@ class RecoverTokenView(views.APIView):
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
 
-        mail = ("To reset Mikan password, please access following URL.\n"
-                f"{settings.PASSWORD_RECOVERY_URL}/{instance.token}\n"
-                "This url is valid for 24 hours.\n")
-        instance.member.email_user("Mikan Password Recovery", mail)
+        mail = textwrap.dedent(f"""\
+        Mikanのパスワードをリセットするには、次のリンクにアクセスしてください。
+
+        {settings.PASSWORD_RECOVERY_URL}/{instance.token}
+
+        このリンクは24時間有効です。
+        \
+        """) + settings.EMAIL_SIGNATURE
+        title = settings.EMAIL_TITLE_PREFIX + "Mikanのパスワードリセット"
+        instance.member.email_user(title, mail)
 
         return Response(RecoverTokenRetriveSerializer(instance).data)
 
