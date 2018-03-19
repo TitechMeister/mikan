@@ -9,6 +9,20 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
 
+class Section(models.Model):
+    """
+    A model represents section. (e.g. Bird, Econo, ...)
+    """
+    name = models.CharField(
+        _('section name'),
+        max_length=30,
+        unique=True
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Team(models.Model):
     """
     A model represents team. (e.g. Wing, Propeller, ...)
@@ -17,6 +31,12 @@ class Team(models.Model):
         _('team name'),
         max_length=30,
         unique=True
+    )
+
+    section = models.ForeignKey(
+        Section,
+        on_delete=models.SET_NULL,
+        null=True
     )
 
     def __str__(self):
