@@ -30,7 +30,7 @@ class RecoverTokenView(views.APIView):
         \
         """) + settings.EMAIL_SIGNATURE
         title = settings.EMAIL_TITLE_PREFIX + "Mikanのパスワードリセット"
-        instance.member.email_user(title, mail)
+        instance.member.email_user(title, mail, fail_silently=True)
 
         return Response(RecoverTokenRetriveSerializer(instance).data)
 

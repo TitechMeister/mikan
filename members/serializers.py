@@ -8,7 +8,7 @@ class TeamSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class MemberSerializer(serializers.ModelSerializer):
+class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = ("id", "uid",
@@ -18,4 +18,15 @@ class MemberSerializer(serializers.ModelSerializer):
                   "team", "felica_idm", "profile_image",
                   "is_active", "is_staff")
         read_only_fields = ('is_active', 'is_staff')
+        depth = 1
+
+
+class MemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Member
+        fields = ("id",
+                  "username", "email",
+                  "first_name", "last_name",
+                  "ja_first_name", "ja_last_name",
+                  "team", "felica_idm", "profile_image")
         depth = 1
