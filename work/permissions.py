@@ -1,12 +1,12 @@
 from rest_framework import permissions
 
 
-class WorkAccessPermisson(permissions.BasePermission):
+class ActivityAccessPermisson(permissions.BasePermission):
     """
-    Permisson for Work.
+    Permisson for Activity.
 
-    - Only users have "create_work_universally"
-      can create work from felica_idm
+    - Only users have "create_activity_universally"
+      can create activities from felica_idm
     """
     def has_permission(self, request, view):
         # Authentication is required
@@ -19,7 +19,7 @@ class WorkAccessPermisson(permissions.BasePermission):
         else:
             # users without special permission are
             # not allowed to access with felica idm.
-            if (not request.user.has_perm("work.create_work_universally")
+            if (not request.user.has_perm("activity.create_activity_universally")
                     and request.data.get("felica_idm")):
                 return False
             # Continue to object level permission check
@@ -28,13 +28,13 @@ class WorkAccessPermisson(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """
-        Object level permission for Work.
+        Object level permission for Acvtivity.
 
-        - Users have permission "work.create_work_universally"
-          can write any work.
-        - Otherwise, users can only write their own work.
+        - Users have permission "activities.create_activity_universally"
+          can write any activities.
+        - Otherwise, users can only write their own activities.
         """
-        if request.user.has_perm("work.create_work_universally"):
+        if request.user.has_perm("activity.create_activity_universally"):
             return True
 
         # Read permissions(GET, HEAD, OPTION) are allowed to any request,

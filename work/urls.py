@@ -1,20 +1,20 @@
-from work.views import WorkViewSet
+from work.views import ActivityViewSet
 
 
-work_list = WorkViewSet.as_view({
+work_list = ActivityViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
-work_detail = WorkViewSet.as_view({
+work_detail = ActivityViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy'
 })
 
-workplace_list = WorkViewSet.as_view({
+workplace_list = ActivityViewSet.as_view({
     'get': 'list',
 })
-workplace_detail = WorkViewSet.as_view({
+workplace_detail = ActivityViewSet.as_view({
     'get': 'retrieve',
 })

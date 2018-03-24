@@ -1,6 +1,7 @@
 import pytz
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 from members.models import Member
 
 
@@ -29,7 +30,7 @@ class Workplace(models.Model):
         return self.name
 
 
-class Work(models.Model):
+class Activity(models.Model):
     """
     A model represents history of work.
     """
@@ -63,5 +64,6 @@ class Work(models.Model):
 
     class Meta:
         permissions = (
-            ("create_work_universally", "Can create work universally"),
+            ("create_activities_universally",
+             "Can create activities universally"),
         )

@@ -1,9 +1,9 @@
 from django_filters import rest_framework as filters
-from work.models import Work
+from work.models import Activity
 
 
-class WorkFilter(filters.FilterSet):
-    in_progress = filters.BooleanFilter(label="Work in progress",
+class ActivityFilter(filters.FilterSet):
+    in_progress = filters.BooleanFilter(label="Activities in progress",
                                         method="filter_in_progress")
     start = filters.DateTimeFromToRangeFilter(field_name="start_at")
     end = filters.DateTimeFromToRangeFilter(field_name="end_at")
@@ -12,5 +12,5 @@ class WorkFilter(filters.FilterSet):
         return queryset.filter(end_at__isnull=True)
 
     class Meta:
-        model = Work
+        model = Activity
         fields = ("member", "workplace", "in_progress", "start", "end")

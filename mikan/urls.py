@@ -28,9 +28,9 @@ router.register("members",
 router.register("teams",
                 members.views.TeamViewSet,
                 base_name="team")
-router.register("work",
-                work.views.WorkViewSet,
-                base_name="work")
+router.register("activities",
+                work.views.ActivityViewSet,
+                base_name="activity")
 router.register("workplaces",
                 work.views.WorkplaceViewSet,
                 base_name="workplace")

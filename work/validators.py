@@ -2,10 +2,10 @@ from datetime import datetime
 from django.utils import timezone
 from django.db.models import Q
 from rest_framework import serializers
-from work.models import Work
+from work.models import Activity
 
 
-class WorkTimeRangeValidator:
+class ActivityTimeRangeValidator:
     def __init__(self, member):
         self.member = member
 
@@ -18,12 +18,12 @@ class WorkTimeRangeValidator:
             start_datetime = timezone.make_aware(start_datetime_native)
         if start_datetime > now:
             raise serializers.ValidationError(
-                "You can't create future work."
+                "You can't create future activity."
             )
         q_base = Q(member=self.member,
                    end_at__isnull=False)
-        # q1: be inside exising work
-        # q2: overlaps with exisiting work
+        # q1: be inside exising activity
+        # q2: overlaps with exisiting activity
         if end:
             q_1 = Q(start_at__lt=start,
                     end_at__gt=end)
@@ -33,10 +33,10 @@ class WorkTimeRangeValidator:
             q_1 = Q()
             q_2 = Q(end_at__gt=start)
 
-        conflicting_work = Work.objects.filter(
+        conflicting = Activity.objects.filter(
             q_base & (q_1 | q_2)
         )
-        if conflicting_work:
+        if conflicting:
             raise serializers.ValidationError(
-                "Conflicting work exist."
+                "Conflicting activity exist."
             )

@@ -1,32 +1,32 @@
 from django.utils import timezone
 from rest_framework import viewsets
-from work.models import Work, Workplace
+from work.models import Activity, Workplace
 from work.serializers import (
-    WorkSerializer,
-    WorkSerializerDetailed,
-    CreateWorkSerializerAllowsFelicaIDm,
+    ActivitySerializer,
+    ActivitySerializerDetailed,
+    CreateActivitySerializerAllowsFelicaIDm,
     WorkplaceSerializer
 )
-from work.validators import WorkTimeRangeValidator
-from work.filters import WorkFilter
-from work.permissions import WorkAccessPermisson
+from work.validators import ActivityTimeRangeValidator
+from work.filters import ActivityFilter
+from work.permissions import ActivityAccessPermisson
 
 
-class WorkViewSet(viewsets.ModelViewSet):
+class ActivityViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    queryset = Work.objects.all()
-    filter_class = WorkFilter
-    permission_classes = (WorkAccessPermisson,)
+    queryset = Activity.objects.all()
+    filter_class = ActivityFilter
+    permission_classes = (ActivityAccessPermisson,)
 
     def get_serializer_class(self):
         if self.action == "list" or self.action == "retrieve":
-            return WorkSerializerDetailed
+            return ActivitySerializerDetailed
         elif self.action == "create":
-            return CreateWorkSerializerAllowsFelicaIDm
-        return WorkSerializer
+            return CreateActivitySerializerAllowsFelicaIDm
+        return ActivitySerializer
 
     def perform_create(self, serializer):
         """
@@ -42,7 +42,7 @@ class WorkViewSet(viewsets.ModelViewSet):
             start_at = start_at.replace(microsecond=0)
         end_at = self.request.data.get("end_at", None)
 
-        validate = WorkTimeRangeValidator(self.request.user)
+        validate = ActivityTimeRangeValidator(self.request.user)
         validate(start_at, end_at)
 
         work_in_progress = self.queryset.filter(member=self.request.user,

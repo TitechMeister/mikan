@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from work.models import Work, Workplace
+from work.models import Activity, Workplace
 from members.serializers import MemberSerializer
 from members.models import Member
 
@@ -10,14 +10,14 @@ class WorkplaceSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class WorkSerializer(serializers.ModelSerializer):
+class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Work
+        model = Activity
         fields = ("id", "member", "workplace",
                   "start_at", "end_at", "is_just_staying")
 
 
-class CreateWorkSerializerAllowsFelicaIDm(serializers.ModelSerializer):
+class CreateActivitySerializerAllowsFelicaIDm(serializers.ModelSerializer):
     """
     A serizlizer for work that allows create work with felica IDm.
 
@@ -50,21 +50,22 @@ class CreateWorkSerializerAllowsFelicaIDm(serializers.ModelSerializer):
         if felica_idm:
             felica_owner = Member.objects.get(felica_idm=felica_idm)
             del validated_data["member"]
-            return Work.objects.create(member=felica_owner, **validated_data)
+            return Activity.objects.create(member=felica_owner,
+                                           **validated_data)
         else:
-            return Work.objects.create(**validated_data)
+            return Activity.objects.create(**validated_data)
 
     class Meta:
-        model = Work
+        model = Activity
         fields = ("id", "member", "felica_idm", "workplace",
                   "start_at", "end_at", "is_just_staying")
 
 
-class WorkSerializerDetailed(serializers.ModelSerializer):
+class ActivitySerializerDetailed(serializers.ModelSerializer):
     workplace = WorkplaceSerializer()
     member = MemberSerializer()
 
     class Meta:
-        model = Work
+        model = Activity
         fields = ("id", "member", "workplace",
                   "start_at", "end_at", "is_just_staying")

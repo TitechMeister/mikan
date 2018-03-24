@@ -1,19 +1,19 @@
 from datetime import datetime, timezone, timedelta
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory, force_authenticate
-from work.views import WorkViewSet
+from work.views import ActivityViewSet
 from members.models import Member
 
 JST = timezone(timedelta(hours=+9), 'JST')
 
 
-class WorkCreateTests(TestCase):
+class ActivityCreateTests(TestCase):
     def __init__(self, *args):
         super().__init__(*args)
         self.factory = APIRequestFactory()
         self.admin = Member.objects.filter(is_staff=True)[0]
         self.normal = Member.objects.filter(is_staff=False)[0]
-        self.view = WorkViewSet.as_view({
+        self.view = ActivityViewSet.as_view({
             'get': 'list',
             'post': 'create'
         })
