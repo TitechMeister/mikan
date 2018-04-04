@@ -34,6 +34,12 @@ router.register("activities",
 router.register("workplaces",
                 work.views.WorkplaceViewSet,
                 base_name="workplace")
+router.register("works",
+                work.views.WorkViewSet,
+                base_name="work")
+router.register("workplans",
+                work.views.WorkPlanViewSet,
+                base_name="workplan")
 
 urlpatterns = [
     url(r'^', include(router.urls)),

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from work.models import Activity, Workplace
+from work.models import Workplace, Activity, Work, WorkPlan, PracticalWork
 from members.serializers import MemberSerializer
 from members.models import Member
 
@@ -69,3 +69,48 @@ class ActivitySerializerDetailed(serializers.ModelSerializer):
         model = Activity
         fields = ("id", "member", "workplace",
                   "start_at", "end_at", "is_just_staying")
+
+
+class WorkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Work
+        fields = "__all__"
+        depth = 1
+
+
+class WorkPlanSerializer(serializers.ModelSerializer):
+    completed_by = MemberSerializer()
+
+    class Meta:
+        model = WorkPlan
+        fields = "__all__"
+        depth = 1
+
+
+class PracticalWorkSerializer(serializers.ModelSerializer):
+    work = serializers.PrimaryKeyRelatedField(queryset=Work.objects.all())
+    workplace = serializers.PrimaryKeyRelatedField(queryset=Workplace.objects.all()) # noqa
+
+    class Meta:
+        model = PracticalWork
+        fields = ("work", "workplace")
+
+
+class CreateWorkPlanSerializer(serializers.ModelSerializer):
+    work = PracticalWorkSerializer(many=True)
+
+    def create(self, validated_data):
+        practical_work_list = validated_data.pop("work", None)
+
+        new_workplan = super().create(validated_data)
+
+        for practical_work in practical_work_list:
+            practical_work["workplan"] = new_workplan
+            new_practical_work = PracticalWork.objects.create(**practical_work)
+            new_practical_work.save()
+
+        return new_workplan
+
+    class Meta:
+        model = WorkPlan
+        fields = "__all__"

@@ -1,15 +1,23 @@
 from django.utils import timezone
 from rest_framework import viewsets
-from work.models import Activity, Workplace
+from work.models import Workplace, Activity, Work, WorkPlan
 from work.serializers import (
+    WorkplaceSerializer,
     ActivitySerializer,
     ActivitySerializerDetailed,
     CreateActivitySerializerAllowsFelicaIDm,
-    WorkplaceSerializer
+    WorkSerializer,
+    WorkPlanSerializer,
+    CreateWorkPlanSerializer,
 )
 from work.validators import ActivityTimeRangeValidator
 from work.filters import ActivityFilter
 from work.permissions import ActivityAccessPermisson
+
+
+class WorkplaceViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Workplace.objects.all()
+    serializer_class = WorkplaceSerializer
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
@@ -54,6 +62,16 @@ class ActivityViewSet(viewsets.ModelViewSet):
         serializer.save(member=self.request.user, start_at=start_at)
 
 
-class WorkplaceViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Workplace.objects.all()
-    serializer_class = WorkplaceSerializer
+class WorkViewSet(viewsets.ModelViewSet):
+    queryset = Work.objects.all()
+    serializer_class = WorkSerializer
+
+
+class WorkPlanViewSet(viewsets.ModelViewSet):
+    queryset = WorkPlan.objects.all()
+    serializer_class = WorkPlanSerializer
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return CreateWorkPlanSerializer
+        return WorkPlanSerializer
