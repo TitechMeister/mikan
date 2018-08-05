@@ -1,9 +1,0 @@
-Django
-pillow
-django-cors-headers
-django-filter
-djangorestframework
-djangorestframework-jwt
-django-crispy-forms
-psycopg2-binary
-django-storage-swift
