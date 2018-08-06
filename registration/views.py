@@ -7,6 +7,10 @@ from registration.models import RegistrationCode
 
 
 class RegistrationView(generics.CreateAPIView):
+    """
+    post:
+    Register new member.
+    """
     queryset = Member.objects.all()
     serializer_class = RegistrationDataSerializer
     permission_classes = (permissions.AllowAny,)

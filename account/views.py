@@ -5,6 +5,10 @@ from members.serializers import AccountSerializer
 
 
 class AccountInfoRetrieveView(generics.RetrieveAPIView):
+    """
+    get:
+    Return an information of current account.
+    """
     queryset = Member.objects.all()
     serializer_class = AccountSerializer
 

@@ -12,8 +12,17 @@ from recover.serializers import (
 
 
 class RecoverTokenView(views.APIView):
+    """
+    post:
+    Issue password recovery request.
+
+    Sends email to user when success.
+    """
     serializer_class = RecoverTokenCreateSerializer
     permission_classes = (permissions.AllowAny,)
+
+    def get_serializer(self):
+        return RecoverTokenCreateSerializer()
 
     def post(self, request, format=None):
         serializer = RecoverTokenCreateSerializer(data=request.data,
@@ -36,8 +45,15 @@ class RecoverTokenView(views.APIView):
 
 
 class VerifyRecoverTokenView(views.APIView):
+    """
+    post:
+    Verify the given password renew token.
+    """
     serializer_class = VerifyRecoverTokenSerializer
     permission_classes = (permissions.AllowAny,)
+
+    def get_serializer(self):
+        return VerifyRecoverTokenSerializer()
 
     def post(self, request, format=None):
         serializer = VerifyRecoverTokenSerializer(data=request.data,
@@ -49,8 +65,15 @@ class VerifyRecoverTokenView(views.APIView):
 
 
 class RenewPasswordView(views.APIView):
+    """
+    post:
+    Renew password for an user associated with the given token.
+    """
     serializer_class = RenewPasswordSerializer
     permission_classes = (permissions.AllowAny,)
+
+    def get_serializer(self):
+        return RenewPasswordSerializer()
 
     def post(self, request, format=None):
         serializer = RenewPasswordSerializer(data=request.data,

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'crispy_forms',
+    'drf_yasg',
     'members',
     'work',
     'account',

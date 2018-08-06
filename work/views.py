@@ -21,10 +21,6 @@ class WorkplaceViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
-    """
-    This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
-    """
     queryset = Activity.objects.all()
     filter_class = ActivityFilter
     permission_classes = (ActivityAccessPermisson,)

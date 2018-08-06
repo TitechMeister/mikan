@@ -42,6 +42,10 @@ Django = "==2.0.2"
 Pillow = "==5.0.0"
 PyJWT = "==1.6.0"
 PyYAML = "==3.12"
+coreapi = "*"
+pygments = "*"
+markdown = "*"
+drf-yasg = "*"
 
 [dev-packages]
 
