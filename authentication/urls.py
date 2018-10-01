@@ -7,7 +7,6 @@ from authentication.serializers import AuthenticationSerializer
 urlpatterns = [
     url(r'reflesh/', refresh_jwt_token),
     url(r'verify/', verify_jwt_token),
-    url(r'token/', obtain_jwt_token),
-    url(r'token_email/',
+    url(r'token/',
         ObtainJSONWebToken.as_view(serializer_class=AuthenticationSerializer)),
 ]
