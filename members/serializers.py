@@ -15,7 +15,7 @@ class AccountSerializer(serializers.ModelSerializer):
                   "username", "email",
                   "first_name", "last_name",
                   "ja_first_name", "ja_last_name",
-                  "team", "felica_idm", "profile_image", "executive_generation"
+                  "team", "felica_idm", "profile_image", "executive_generation",
                   "is_active", "is_staff")
         read_only_fields = ('is_active', 'is_staff')
         depth = 1
