@@ -24,22 +24,22 @@ import work.views
 router = DefaultRouter()
 router.register("members",
                 members.views.MemberViewSet,
-                base_name="member")
+                basename="member")
 router.register("teams",
                 members.views.TeamViewSet,
-                base_name="team")
+                basename="team")
 router.register("activities",
                 work.views.ActivityViewSet,
-                base_name="activity")
+                basename="activity")
 router.register("workplaces",
                 work.views.WorkplaceViewSet,
-                base_name="workplace")
+                basename="workplace")
 router.register("works",
                 work.views.WorkViewSet,
-                base_name="work")
+                basename="work")
 router.register("workplans",
                 work.views.WorkPlanViewSet,
-                base_name="workplan")
+                basename="workplan")
 
 urlpatterns = [
     url(r'^', include(router.urls)),
