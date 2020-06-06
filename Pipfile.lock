@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4e02aee713d0e56df9d133bd00a9053e3d9f2d654eda7fbc8a13249d784b6b5c"
+            "sha256": "cf1fb2bbc29faaf6d8055ae48d16ffe1f28eae6876bb829091a814e573816187"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -50,11 +50,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:69897097095f336d5aeef45b4103dceae51c00afa6d3ae198a2a18e519791b7a",
-                "sha256:6ecd229e1815d4fc5240fc98f1cca78c41e7a8cd3e3f2eefadc4735031077916"
+                "sha256:84f370f6acedbe1f3c41e1a02de44ac206efda3355e427139ecb785b5f596d80",
+                "sha256:e8fe3c2b2212dce6126becab7a693157f1a441a07b62ec994c046c76af5bb66d"
             ],
             "index": "pypi",
-            "version": "==2.2.12"
+            "version": "==2.2.13"
         },
         "django-cors-headers": {
             "hashes": [
@@ -225,19 +225,19 @@
         },
         "oslo.serialization": {
             "hashes": [
-                "sha256:06612670c754aa77be1d42fa9301f5c8a633a1ae28c2f998788ba48fbb3284e5",
-                "sha256:c8d2de8788c4dd8900a5abacc1c29c1d36f3ead5eab392bc1e39a5dc193f78cf"
+                "sha256:146470f7b079930d7a15ac47463c12cee61a03a77050ed46b3ffc142753ecca1",
+                "sha256:de8ca4688adec03cd3e7b225171088971a7e23abd8e09e6f8c49068da1ceb537"
             ],
             "index": "pypi",
-            "version": "==3.1.0"
+            "version": "==3.1.1"
         },
         "oslo.utils": {
             "hashes": [
-                "sha256:eb1f9627ffc9981ba0a4b93225669ef70d1a3114534af734748682bd5ed3ebcf",
-                "sha256:ebbbe0a3bdea22a2e5e0144e6b38d1afdebd2072850e478ff24bb75bd1a14784"
+                "sha256:a272f4a665dac902a3f6ca8b2962302648a4e0e2193b47a57a22416b906d3c0b",
+                "sha256:fd3fb9f5370004c6c3a4056edeeb628650da84824b18925c92479d4441fef92b"
             ],
             "index": "pypi",
-            "version": "==4.1.0"
+            "version": "==4.1.1"
         },
         "pbr": {
             "hashes": [
