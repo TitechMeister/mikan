@@ -39,7 +39,7 @@ stevedore = "~=1.32.0"
 wrapt = "~=1.12.1"
 Babel = "~=2.9.1"
 Django = "~=2.2.24"
-Pillow = "~=8.2.0"
+Pillow = "~=8.3.2"
 PyJWT = "~=1.7.1"
 PyYAML = "~=5.4"
 
